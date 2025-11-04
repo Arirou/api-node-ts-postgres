@@ -4,7 +4,8 @@
 
 1. Cloner le projet :
 ```bash
-git clone <ton_repo>
+git clone https://github.com/Arirou/api-node-ts-postgres.git
+
 ```
 2. Installer les dépendances :
 ```bash
