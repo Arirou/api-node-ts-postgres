@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    // Active les décorateurs expérimentaux (@Entity, @Column, etc.) nécessaires pour TypeORM
+    "emitDecoratorMetadata": true,
+    // Génère les métadonnées des décorateurs, TypeORM en a besoin pour connaître les types des colonnes
+    "strictPropertyInitialization": false
+    // Désactive l'erreur pour les propriétés non initialisées dans les classes (TypeORM initialise les colonnes automatiquement)
+  }
+}
