@@ -1,42 +1,36 @@
-// Importation du framework Express et des types Request et Response
-import express, {Request, Response} from 'express';
-// Importation de dotenv pour charger les variables d'environnement depuis .env
+// Importation d'Express et de ses types
+import express, { Request, Response } from 'express';
+// Importation pour charger les variables d'environnement depuis .env
 import * as dotenv from 'dotenv';
-// Importation des routes utilisateurs
+// Importation du routeur utilisateurs
 import userRoutes from './routes/user.routes';
-// Importation de la source de données PostgreSQL (TypeORM)
-import {AppDataSource} from './data-source';
+// Importation de la datasource pour PostgreSQL
+import { AppDataSource } from './data-source';
 
-// Chargement des variables d'environnement
+// Charge les variables d'environnement
 dotenv.config();
 
 // Création de l'application Express
 const app = express();
-
-// Définition du port à partir du fichier .env
-const PORT = process.env.PORT;
+// Récupération du port depuis .env ou défaut 3000
+const PORT = process.env.PORT || 3000;
 
 // Middleware pour parser le JSON dans les requêtes entrantes
 app.use(express.json());
 
-/**
- * Route GET /
- * Description : Route de test pour vérifier si le serveur fonctionne
- */
+// Route racine pour tester que le serveur fonctionne
 app.get('/', (req: Request, res: Response) => {
     res.send('API Node.js avec PostgreSQL fonctionne !');
 });
 
-// Montage des routes utilisateurs sous le chemin /users
+// Montage du routeur utilisateurs sur /users
 app.use('/users', userRoutes);
 
-/**
- * Initialisation de la connexion à la base de données PostgreSQL
- * Une fois la connexion établie, le serveur est lancé
- */
+// Initialisation de la connexion à PostgreSQL avant de démarrer le serveur
 AppDataSource.initialize()
     .then(() => {
         console.log('✅ Base de données connectée');
+        // Démarrage du serveur
         app.listen(PORT, () => console.log(`✅ Serveur démarré sur http://localhost:${PORT}`));
     })
     .catch((err) => console.error('❌ Erreur de connexion à la base', err));
